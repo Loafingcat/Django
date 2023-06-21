@@ -4,6 +4,7 @@
 <head>
     <title>Blog</title>
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="https://kit.fontawesome.com/ae53cfe983.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -40,12 +41,43 @@
                 <!-- ml-auto 동작안함 -->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Log In</a>
+                        <a class="nav-link" href="#"data-toggle="modal" data-target="#loginModal">Log In</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+     <!-- Modal -->
+     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel"
+     aria-hidden="true">
+     <div class="modal-dialog" role="document">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title" id="loginModalLabel"> <i class="fa-solid fa-right-to-bracket"></i>&nbsp Log In</h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-outline-dark btn-block btn-sm "><i class="fa-brands fa-google"></i>&nbsp&nbsp Log in with Google</button>
+                        <button type="button" class="btn btn-outline-dark btn-block btn-sm "><i class="far fa-envelope"></i>&nbsp&nbsp Log in with E-mail</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-outline-dark btn-block btn-sm"><i class="far fa-envelope"></i>&nbsp&nbsp Sign Up with E-mail</button>
+                    </div>
+                </div>                
+            </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             </div>
+         </div>
+     </div>
+ </div>
+
+ 
     <div class="container my-3">
         <div class="row">
             <div class="col-md-8 col-lg-9">
