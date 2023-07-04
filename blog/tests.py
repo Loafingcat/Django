@@ -40,7 +40,6 @@ class TestView(TestCase):
         main_area = soup.find('div', id='main-area')
         self.assertIn(self.category_programming.name, main_area.text)
         self.assertIn(self.post_001.title, main_area.text)
-        
 
     def navbar_test(self, soup):
         navbar = soup.nav
