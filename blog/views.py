@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import Post, Category
+from .models import Post, Category, Tag
 
 
 class PostList(ListView):  # ListView 클래스를 상속해서 만든다.
@@ -78,3 +78,20 @@ def category_page(request, slug):  # 엔드유저의 요청과 함께 slug 매�
             'category': category,  # 선택된 카테고리를 category 키로 전달
         }
     )
+
+
+def tag_page(request, slug):
+    tag = Tag.objects.get(slug=slug)
+    post_list = tag.post_set.all()
+
+    return render(
+        request,
+        'blog/post_list.html',
+        {
+            'post_list': post_list,
+            'tag': tag,
+            'categories': Category.objects.all(),
+            'no_category_post_count': Post.objects.filter(category=None).count(),
+        }
+    )
+
