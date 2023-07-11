@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post, Category, Tag
 
 
@@ -19,6 +20,7 @@ class PostDetail(DetailView):  # DetailView는 단일 인스턴스를 보여주�
     model = Post  # PostDetail은 Post 모델의 단일 포스트를 보여주는 역할
     # PostDetail 클래스는 DetailView 기능을 활용해서 Post 모델의 특정 포스트를
     # 가져와서 해당 포스트의 상세 내용을 보여주는 역할
+
     def get_context_data(self, **kwargs):
         context = super(PostDetail, self).get_context_data()
         context['categories'] = Category.objects.all()
@@ -27,6 +29,17 @@ class PostDetail(DetailView):  # DetailView는 단일 인스턴스를 보여주�
         return context
 
 
+class PostCreate(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category']
+
+    def form_valid(self, form):
+        current_user = self.request.user
+        if current_user.is_authenticated:
+            form.instance.author = current_user
+            return super(PostCreate, self).form_valid(form)
+        else:
+            return redirect('/blog/')
 # def index(request): # 블로그의 포스트 리스트를 보여주는 역할을 함
 #     # 이 함수는 장고의 render()함수를 사용해서 blog/post_list.html 템플릿을
 #     # 렌더링 해서 엔드 유저에게 반환한다.
