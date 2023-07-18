@@ -178,6 +178,7 @@ class TestView(TestCase):
         tag_str_input = main_area.find('input', id='id_tags_str')
         self.assertTrue(tag_str_input)
 
+
         self.client.post(
             '/blog/create_post/',
             {
