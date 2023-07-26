@@ -11,6 +11,7 @@ from django.utils.text import slugify
 class PostList(ListView):  # ListView 클래스를 상속해서 만든다.
     model = Post  # model은 Post다 라고 선언해주면 아까 index 함수와 같은 기능을 하게 된다.
     ordering = '-pk'  # index에서 order by의 역할
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super(PostList, self).get_context_data()
