@@ -73,6 +73,12 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.author}::{self.content}'
 
+    def get_avatar_url(self):
+        if self.author.socialaccount_set.exists():
+            return self.author.socialaccount_set.first().get_avatar_url()
+        else:
+            return f'https://doitdjango.com/avatar/id/1618/e06fe162ad3cac7f/svg/{self.author.email}'
+
     def get_absolute_url(self):
         return f'{self.post.get_absolute_url()}#comment-{self.pk}'
     # Comment 객체의 get_absolute_url 메서드를 호출하면 글의 상세페이지로 이동하는 URL이 생성됨
