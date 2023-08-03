@@ -11,7 +11,7 @@ from django.utils.text import slugify
 class PostList(ListView):  # ListView 클래스를 상속해서 만든다.
     model = Post  # model은 Post다 라고 선언해주면 아까 index 함수와 같은 기능을 하게 된다.
     ordering = '-pk'  # index에서 order by의 역할
-    paginate_by = 5
+    paginate_by = 5  # 페이지 당 글 개수 제한
 
     def get_context_data(self, **kwargs):
         context = super(PostList, self).get_context_data()
@@ -142,8 +142,7 @@ class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
 def category_page(request, slug):  # 엔드유저의 요청과 함께 slug 매개 변수를 받음
     if slug == 'no_category':  # if를 사용해서 slug 값이 no_category인 경우와 그렇지 않은 경우를 구분
-        category = '미분류'  # 만약 no_category인 경우 미분류로 설정하고 카테고리가 없는 포스트를 필터링해서 post_list에
-                            # 할당한다
+        category = '미분류'  # 만약 no_category인 경우 미분류로 설정하고 카테고리가 없는 포스트를 필터링해서 post_list에 할당한다
         post_list = Post.objects.filter(category=None)
     else:
         category = Category.objects.get(slug=slug)  # 그렇지 않은 경우는 얘를 사용해서 slug 값에 해당하는

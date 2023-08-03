@@ -1,33 +1,44 @@
+<!--'blog/base.html'템플릿 확장-->
 {% extends 'blog/base.html' %}
+<!--main block을 정의하고 삽입할 준비-->
 {% block main_area %}
+<!--사용자 인증 확인하고 슈퍼유저거나 스태프면 New Post 버튼 표시-->
     {% if user.is_authenticated %}
         {% if user.is_super or user.is_staff %}
             <a class="btn btn-info btn-sm float-right" href="/blog/create_post/" role="button"><i class="fas fa-pen"></i>&nbsp;&nbsp;New Post</a>
         {% endif %}
     {% endif %}
+<!--블로그 페이지 제목, 선택한 카테고리와 태그가 있으면 해당 정보 표시-->
 <h1>Blog {% if category %}<span class="badge badge-secondary">{{ category }}</span>{% endif %}
     {% if tag %}<span class="badge badge-secondary"><i class="fas fa-tags"></i> {{ tag }}({{ tag.post_set.count }})</span>{% endif %}</h1>
+<!--게시물 리스트가 존재 하는지 확인하는 조건문-->
 {% if post_list.exists %}
-
+<!--게시물 리스트 루프-->
 {% for p in post_list %}
-<!-- Blog Post -->
+<!--게시물 표시할 카드 생성, 게시물 고유 식별자 ID 설정-->
 <div class="card mb-4" id="post-{{ p.pk }}">
+<!--게시물에 헤더 이미지 표시, 없으면 랜덤 이미지-->
     {% if p.head_image %}
     <img class="card-img-top" src="{{ p.head_image.url }}" alt="{{ p }} head image">
     {% else %}
     <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}/800/200" alt="random_image">
     {% endif %}
     <div class="card-body">
+<!--게시물이 카테고리 정보를 가지고 있으면 카테고리 표시하고 아니면 미분류로 표시-->
         {% if p.category %}
             <span class="badge badge-secondary float-right">{{ p.category }}</span>
         {% else %}
             <span class="badge badge-secondary float-right">미분류</span>
         {% endif %}
+<!--게시물 제목-->
         <h2 class="card-title">{{ p.title }}</h2>
+<!--게시물에 hook text 있으면 표시-->
         {% if p.hook_text %}
         <h5 class="text-muted">{{ p.hook_text }}</h5>
         {% endif %}
+<!--게시물 내용을 설정한 단어수로 자르고 markdown 형식을 html로 변환해서 표시-->
         <p class="card-text">{{ p.get_content_markdown | truncatewords_html:45 | safe }}</p>
+<!--게시물이 태그를 가지고 있으면 태그 정보 표시-->
         {% if p.tags.exists %}
         <i class="fas fa-tags"></i>
         {% for tag in p.tags.iterator %}
@@ -36,22 +47,27 @@
         <br/>
         <br/>
         {% endif %}
+<!--Read More라는 버튼을 통해 게시물 읽을 수 있는 링크 생성-->
         <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
     </div>
+<!--게시물 작성일 작성자를 푸터에 표시-->
     <div class="card-footer text-muted">
         Posted on {{ p.created_at }} by
         <a href="#">{{ p.author | upper }}</a>
     </div>
 </div>
+<!--게시물 리스트 루프 끝-->
 {% endfor %}
+<!--게시물이 없는 경우 표시-->
 {% else %}
 <h3>아직 게시물이 없습니다.</h3>
 {% endif %}
 
+<!--페이지네이션이 있는 경우-->
 {% if is_paginated %}
-<!-- Pagination -->
 <ul class="pagination justify-content-center mb-4">
     {% if page_obj.has_next %}
+<!--이전 페이지로 돌아가는 링크-->
     <li class="page-item">
         <a class="page-link" href="?page={{ page_obj.next_page_number }}">&larr; Older</a>
     </li>
@@ -60,7 +76,7 @@
         <a class="page-link" href="#">&larr; Older</a>
     </li>
     {% endif %}
-
+<!--다음 페이지로 이동하는 링크 표시-->
     {% if page_obj.has_previous %}
     <li class="page-item">
         <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Newer &rarr;</a>

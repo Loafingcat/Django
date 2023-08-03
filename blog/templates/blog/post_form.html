@@ -1,12 +1,18 @@
+<!--아래 템플릿을 확장중, -->
 {% extends 'blog/base_full_width.html' %}
+<!--crispy forms 라는 라이브러리를 로드하는 부분. 장고폼을 더 깔금하게 보이도록 스타일링하는 패키지-->
 {% load crispy_forms_tags %}
+<!--title 내부의 텍스트를 변경해서 제목 지정-->
 {% block head_title %}Create Post - Blog{% endblock %}
 
 {% block main_area %}
     <h1>Create New Post</h1>
     <hr/>
+<!--새로운 게시물 작성을 위한 <form>태그의 시작, 데이터 파일 업로드가 포함 될 수 있다, 보안을 위한 csrf 토큰도 포함-->
     <form method="post" enctype="multipart/form-data">{% csrf_token %}
+<!--crispy form을 통해 form 객체를 스타일링 된 HTML 폼으로 랜더링-->
             {{ form | crispy }}
+<!--태그를 입력하는 폼, 입력 상자와 레이블-->
             <div id="div_id_tags_str">
                 <label for="id_tags_str">Tags:</label>
                 <input type="text" name="tags_str" id="id_tags_str" class="textinput textInput form-control">
@@ -14,5 +20,7 @@
             <br/>
         <button type="submit" class="btn btn-primary float-right">Submit</button>
     </form>
+<!--crispy forms 라이브러리가 필요하는 추가적인 미디어 파일을 페이지에 추가-->
     {{ form.media }}
+<!--메인 블럭 내용 종료-->
 {% endblock %}

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--정적 파일 로드-->
 {% load static %}
 <html lang="ko">
 
@@ -13,9 +14,9 @@
 </head>
 
 <body>
-
+<!--상단 네비게이션 바 포함-->
 {% include 'blog/navbar.html' %}
-
+<!--container 클래스로 메인 콘텐츠를 감싸고 메인 영역과 사이드 바로 나뉨-->
     <div class="container my-3">
         <div class="row">
             <div class="col-md-8 col-lg-9" id="main-area">
