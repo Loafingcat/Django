@@ -1,3 +1,7 @@
+# 관리자 인터페이스를 설정하는 파일. 장고 자체에 내장된 관리자 인터페이스를 제공해서 데이터베이스 모델을
+# 쉽게 관리하고 수정할 수 있는 기능을 제공한다. 이 파일을 사용해서 데이터베이스 모델을 관리자 페이지에서
+# 편리하게 조작할 수 있는 방법을 지정할 수 있음.
+
 from django.contrib import admin
 from markdownx.admin import MarkdownxModelAdmin
 from .models import Post, Category, Tag, Comment

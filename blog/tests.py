@@ -1,3 +1,5 @@
+# 자동화된 테스트 코드를 작성하는 데 사용되는 파일이다. 이 파일을 사용하여 프로젝트의 각 부분을 자동으로 테스트하고 검증할 수 있음
+
 from django.test import TestCase, Client
 from bs4 import BeautifulSoup
 from django.contrib.auth.models import User

@@ -1,3 +1,6 @@
+# 웹 애플리케이션의 뷰(view)를 정의하는 파일. 뷰 함수는 클라이언트의 웹 요청을 처리하고, 해당 요청에 대한 응답을 생성하는 역할을 함.
+# 웹 페이지의 로직과 동작을 정의하고 데이터를 가공하여 템플릿을 렌더링하여 사용자에게 보여주는 역할을 하는 것.
+
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin

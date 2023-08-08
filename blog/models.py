@@ -1,3 +1,7 @@
+# 파일 이름 그대로 데이터베이스 모델을 정의한다. 데이터베이스 모델은 데이터를 구조화하고 저장하기 위한 클래스로
+# 객체 지향적인 방식으로 데이터베이스 테이블을 정의함. 이 파일을 통해 데이터 구조와 속성을 정의할 수 있고
+# 데이터베이스 테이블의 상호작용을 처리할 수 있음.
+
 from django.db import models
 from django.contrib.auth.models import User
 from markdownx.models import MarkdownxField
