@@ -67,6 +67,13 @@ class Post(models.Model):
         return markdown(self.content)
 
 
+    def get_avatar_url(self):
+        if self.author.socialaccount_set.exists():
+            return self.author.socialaccount_set.first().get_avatar_url()
+        else:
+            return f'https://doitdjango.com/avatar/id/1618/e06fe162ad3cac7f/svg/{self.author.email}'
+
+
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)  # 블로그 글이 삭제되면 그 글에 달린 모든 댓글도 삭제됨
     author = models.ForeignKey(User, on_delete=models.CASCADE)  # 이것도 마찬가지
